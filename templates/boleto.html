@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Boleto Digital • Sorteo iPhone 17 Pro • {{ order.id }}{% endblock %}
+
+{% block content %}
+<div class="py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        
+        <!-- Acciones Superiores -->
+        <div class="flex items-center justify-between mb-6 print:hidden">
+            <a href="/" class="text-xs text-slate-400 hover:text-white flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Volver al Inicio
+            </a>
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition flex items-center">
+                <i data-lucide="printer" class="w-4 h-4 mr-1.5"></i> Imprimir / Guardar PDF
+            </button>
+        </div>
+
+        <!-- TARJETA DEL BOLETO DIGITAL -->
+        <div class="bg-gradient-to-b from-slate-900 via-titanium-950 to-slate-900 border-2 border-blue-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            
+            <!-- Marca de agua de fondo -->
+            <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-blue-400 font-mono text-9xl font-black select-none">
+                iP17
+            </div>
+
+            <!-- Cabecera del Boleto -->
+            <div class="text-center pb-6 border-b border-slate-800">
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase tracking-wider mb-3">
+                    <span>CERTIFICADO OFICIAL DE PARTICIPACIÓN</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-white">Gran Sorteo iPhone 17 Pro</h1>
+                <p class="text-xs text-slate-400 mt-1">10.000 números • Del 0000 al 9999 • Colombia</p>
+                
+                <div class="mt-4">
+                    {% if order.status == 'approved' %}
+                        <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-1.5"></i> PAGO VERIFICADO Y ACTIVO
+                        </span>
+                    {% elif order.status == 'pending' %}
+                        <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            <i data-lucide="clock" class="w-4 h-4 mr-1.5"></i> EN REVISIÓN DE PAGO
+                        </span>
+                    {% else %}
+                        <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-red-500/20 text-red-300 border border-red-500/30">
+                            <i data-lucide="x-circle" class="w-4 h-4 mr-1.5"></i> ORDEN RECHAZADA
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Datos de la Rifa -->
+            <div class="bg-titanium-950/70 border border-slate-800 rounded-2xl p-4 my-6 grid grid-cols-2 gap-4 text-xs">
+                <div>
+                    <span class="text-slate-500 text-[10px] uppercase font-semibold block">Fecha del Sorteo:</span>
+                    <strong class="text-white font-mono">{{ settings.draw_date_display }}</strong>
+                </div>
+                <div>
+                    <span class="text-slate-500 text-[10px] uppercase font-semibold block">Lotería Oficial:</span>
+                    <strong class="text-blue-400">{{ settings.lottery_name }}</strong>
+                </div>
+                <div>
+                    <span class="text-slate-500 text-[10px] uppercase font-semibold block">Premio Mayor:</span>
+                    <strong class="text-white">{{ settings.prize_name }}</strong>
+                </div>
+                <div>
+                    <span class="text-slate-500 text-[10px] uppercase font-semibold block">Mecánica:</span>
+                    <strong class="text-slate-300">4 Cifras del Premio Mayor</strong>
+                </div>
+            </div>
+
+            <!-- Números Oficiales Asignados -->
+            <div class="my-6">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">
+                    Tus Números de la Suerte ({{ order.tickets|length }} boletas):
+                </div>
+                <div class="flex flex-wrap justify-center gap-2.5 p-4 bg-titanium-950 rounded-2xl border border-slate-800">
+                    {% for num in order.tickets %}
+                    <span class="px-4 py-2 rounded-xl font-mono text-lg font-black bg-blue-600/20 text-blue-300 border border-blue-500/40 shadow-sm">
+                        {{ num }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Datos del Comprador -->
+            <div class="border-t border-slate-800 pt-6 text-xs space-y-2">
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Orden ID:</span>
+                    <span class="font-mono font-bold text-white">{{ order.id }}</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Titular Registrado:</span>
+                    <span class="font-bold text-white">{{ order.full_name }}</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Cédula:</span>
+                    <span class="font-mono font-bold text-white">{{ order.cedula }}</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Celular / WhatsApp:</span>
+                    <span class="font-mono text-slate-300">{{ order.phone }}</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Total Pagado:</span>
+                    <span class="font-mono font-bold text-emerald-400">${{ "{:,}".format(order.total_amount).replace(",", ".") }} COP</span>
+                </div>
+                <div class="flex justify-between py-1">
+                    <span class="text-slate-400">Método de Pago:</span>
+                    <span class="font-bold uppercase text-slate-300">{{ order.payment_method }}</span>
+                </div>
+            </div>
+
+            <!-- Nota de Reclamación -->
+            <div class="mt-6 p-4 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400 leading-relaxed text-center">
+                ⚠️ <strong>Aviso legal:</strong> Este documento digital certifica la adquisición de las boletas. En caso de resultar ganador, la persona deberá presentar su documento de identidad original para recibir el premio.
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

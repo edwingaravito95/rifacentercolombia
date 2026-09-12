@@ -1,0 +1,538 @@
+{% extends 'base.html' %}
+
+{% block title %}Sorteo iPhone 17 Pro Max  Colombia Oficial{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<section class="relative overflow-hidden pt-8 pb-16 lg:pt-16 lg:pb-24">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-blue-600/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-blue-400 font-semibold">10.000 NÚMEROS</span>
+                    <span> Del 0000 al 9999</span>
+                    <span> Premio Mayor 4 Cifras</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none">
+                    Gana el Nuevo <br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
+                        iPhone 17 Pro Max
+                    </span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    Participa en el sorteo más esperado de Colombia. Solo 
+                    <span class="text-emerald-400 font-bold">$2.000 COP</span> por boleta.
+                    Compra mínima en packs desde <strong>5 boletas ($10.000 COP)</strong>.
+                </p>
+
+                <!-- Cuenta Regresiva -->
+                <div class="bg-titanium-900/90 border border-slate-800 p-5 rounded-2xl max-w-xl mx-auto lg:mx-0 shadow-2xl backdrop-blur-md">
+                    <div class="flex items-center justify-between mb-3 text-xs uppercase tracking-wider text-slate-400 font-bold">
+                        <span class="flex items-center text-blue-400"><i data-lucide="calendar" class="w-4 h-4 mr-1.5"></i> Gran Sorteo: 22 de Diciembre</span>
+                        <span class="text-amber-400 flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-1"></i> Faltan</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-center" id="countdown-timer">
+                        <div class="bg-titanium-950/80 p-2.5 rounded-xl border border-slate-800">
+                            <span class="block text-2xl sm:text-3xl font-mono font-black text-white" id="cd-days">--</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Días</span>
+                        </div>
+                        <div class="bg-titanium-950/80 p-2.5 rounded-xl border border-slate-800">
+                            <span class="block text-2xl sm:text-3xl font-mono font-black text-white" id="cd-hours">--</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Horas</span>
+                        </div>
+                        <div class="bg-titanium-950/80 p-2.5 rounded-xl border border-slate-800">
+                            <span class="block text-2xl sm:text-3xl font-mono font-black text-white" id="cd-minutes">--</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Minutos</span>
+                        </div>
+                        <div class="bg-titanium-950/80 p-2.5 rounded-xl border border-slate-800">
+                            <span class="block text-2xl sm:text-3xl font-mono font-black text-blue-400" id="cd-seconds">--</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Segundos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso de Boletas -->
+                <div class="space-y-2 max-w-xl mx-auto lg:mx-0">
+                    <div class="flex justify-between text-xs font-semibold text-slate-400">
+                        <span>Boletas Vendidas: <strong class="text-white">{{ stats.sold_tickets }}</strong></span>
+                        <span>Disponibles: <strong class="text-emerald-400">{{ stats.available_tickets }}</strong> / 10.000</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800 overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full transition-all duration-500" style="width: {{ stats.percent_sold }}%"></div>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción Rápida -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                    <a href="#packs" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-base shadow-xl shadow-blue-600/30 transition transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        <span>Elegir mi Pack de Boletas</span>
+                    </a>
+                    <a href="/consultar" class="w-full sm:w-auto px-6 py-4 rounded-xl bg-titanium-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-base transition flex items-center justify-center space-x-2">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                        <span>Consultar mis Números</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Columna Derecha: Tarjeta Visual del Premio -->
+            <div class="lg:col-span-5">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-xl opacity-40 group-hover:opacity-60 transition duration-500"></div>
+                    
+                    <div class="relative bg-gradient-to-b from-slate-900 to-titanium-950 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                <i data-lucide="trophy" class="w-3.5 h-3.5 mr-1 text-amber-400"></i> PREMIO MAYOR
+                            </span>
+                            <span class="text-xs text-slate-400 font-mono">Nuevo Sellado en Caja</span>
+                        </div>
+
+                        <!-- Render Ilustrativo del iPhone 17 Pro -->
+                        <div class="text-center py-6">
+                            <div class="w-48 h-80 mx-auto rounded-[3rem] p-3 bg-gradient-to-b from-slate-700 via-slate-800 to-slate-950 shadow-2xl border-4 border-slate-600/60 relative">
+                                <div class="w-20 h-5 bg-black rounded-full mx-auto mb-3 flex items-center justify-center space-x-2">
+                                    <div class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800"></div>
+                                </div>
+                                <div class="w-full h-64 rounded-[2.3rem] bg-gradient-to-tr from-blue-950 via-indigo-900 to-slate-950 flex flex-col items-center justify-between p-4 text-center border border-blue-500/20">
+                                    <div class="mt-4">
+                                        <i data-lucide="smartphone" class="w-8 h-8 text-white/80 mx-auto"></i>
+                                        <div class="text-xs font-semibold text-blue-300 mt-2">Apple Intelligence</div>
+                                        <div class="text-[11px] text-slate-400">Chip A19 Pro</div>
+                                    </div>
+                                    <div class="w-full bg-slate-900/80 backdrop-blur-md rounded-2xl p-3 border border-slate-700/60">
+                                        <div class="text-xs font-bold text-white">iPhone 17 Pro Max</div>
+                                        <div class="text-[10px] text-emerald-400 font-mono">256 GB  Titanio</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-slate-800 text-center text-xs">
+                            <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                                <span class="block text-slate-400 text-[10px]">Capacidad</span>
+                                <strong class="text-white">256 GB</strong>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                                <span class="block text-slate-400 text-[10px]">Cámara</span>
+                                <strong class="text-white">48 MP Fusion</strong>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                                <span class="block text-slate-400 text-[10px]">Garantía</span>
+                                <strong class="text-emerald-400">1 Año Apple</strong>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-blue-950/30 border border-blue-500/20 rounded-xl p-3 text-center text-xs text-blue-200">
+                            ?? Juega el <strong>22 de Diciembre</strong> con el Premio Mayor de 4 Cifras
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- SECCIÓN DE PACKS DE BOLETAS -->
+<section id="packs" class="py-16 bg-titanium-900/40 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-2">Precios Accesibles • Mayor Probabilidad</h2>
+            <p class="text-3xl sm:text-4xl font-black text-white">Elige tu Pack de Boletas</p>
+            <p class="text-sm text-slate-400 mt-2">
+                Cada boleta tiene un valor de solo <strong>$2.000 COP</strong>. Puedes comprar desde 5 boletas en adelante.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            
+            <!-- PACK 1: 5 Boletas -->
+            <div class="relative bg-gradient-to-b from-slate-900 to-titanium-950 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-slate-700 transition group shadow-xl">
+                <div>
+                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300 mb-4">
+                        PACK INICIAL
+                    </div>
+                    <h3 class="text-2xl font-black text-white">5 Boletas</h3>
+                    <p class="text-xs text-slate-400 mt-1">La compra mínima ideal para participar</p>
+                    
+                    <div class="my-6">
+                        <span class="text-4xl font-black text-white">$10.000</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase">COP</span>
+                        <div class="text-xs text-emerald-400 mt-1">($2.000 COP por boleta)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-xs text-slate-300 mb-6">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> 5 oportunidades de ganar</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Números al azar o a tu gusto</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Boleta digital por correo</li>
+                    </ul>
+                </div>
+
+                <button onclick="selectPack(5)" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-blue-600 text-white font-bold text-sm transition flex items-center justify-center space-x-2">
+                    <i data-lucide="ticket" class="w-4 h-4"></i>
+                    <span>Elegir 5 Boletas</span>
+                </button>
+            </div>
+
+            <!-- PACK 2: 10 Boletas (Destacado) -->
+            <div class="relative bg-gradient-to-b from-blue-950/40 via-slate-900 to-titanium-950 border-2 border-blue-500 rounded-3xl p-6 flex flex-col justify-between hover:border-blue-400 transition shadow-2xl shadow-blue-900/20 transform md:-translate-y-2">
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                    🔥 MÁS POPULAR
+                </div>
+                
+                <div>
+                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 mb-4 mt-2">
+                        PACK FAVORITO
+                    </div>
+                    <h3 class="text-2xl font-black text-white">10 Boletas</h3>
+                    <p class="text-xs text-slate-400 mt-1">Duplica tus probabilidades de llevarte el iPhone 17 Pro</p>
+                    
+                    <div class="my-6">
+                        <span class="text-4xl font-black text-white">$20.000</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase">COP</span>
+                        <div class="text-xs text-emerald-400 mt-1">($2.000 COP por boleta)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-xs text-slate-300 mb-6">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> 10 oportunidades de ganar</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Doble probabilidad de acierto</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Registro prioritario en el sistema</li>
+                    </ul>
+                </div>
+
+                <button onclick="selectPack(10)" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition flex items-center justify-center space-x-2">
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                    <span>Elegir 10 Boletas</span>
+                </button>
+            </div>
+
+            <!-- PACK 3: 20 Boletas -->
+            <div class="relative bg-gradient-to-b from-slate-900 to-titanium-950 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-amber-500/50 transition group shadow-xl">
+                <div>
+                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 mb-4">
+                        SUPER PROBABILIDAD
+                    </div>
+                    <h3 class="text-2xl font-black text-white">20 Boletas</h3>
+                    <p class="text-xs text-slate-400 mt-1">La mayor cantidad de números para asegurar tu victoria</p>
+                    
+                    <div class="my-6">
+                        <span class="text-4xl font-black text-white">$40.000</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase">COP</span>
+                        <div class="text-xs text-emerald-400 mt-1">($2.000 COP por boleta)</div>
+                    </div>
+
+                    <ul class="space-y-3 text-xs text-slate-300 mb-6">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> 20 números asignados</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Cobertura de números en todas las series</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0"></i> Asesoría directa por WhatsApp</li>
+                    </ul>
+                </div>
+
+                <button onclick="selectPack(20)" class="w-full py-3.5 rounded-xl bg-slate-800 hover:bg-amber-600 text-white font-bold text-sm transition flex items-center justify-center space-x-2">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    <span>Elegir 20 Boletas</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Selector personalizado para 5 o más boletas -->
+        <div class="mt-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold text-slate-300 block">¿Quieres otra cantidad de boletas?</span>
+                <span class="text-xs text-slate-500">Mínimo 5 boletas (ej: 30, 50, 100)</span>
+            </div>
+            <div class="flex items-center space-x-2 w-full sm:w-auto">
+                <input type="number" id="custom-pack-input" min="5" max="500" value="25" class="w-24 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-center text-white font-mono font-bold text-sm focus:outline-none focus:border-blue-500">
+                <button onclick="selectCustomPack()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition">
+                    Seleccionar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- SECCIÓN SELECTOR DE NÚMEROS (AZAR O MANUAL) -->
+<section id="selector" class="py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+            <h2 class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-2">Paso 2</h2>
+            <p class="text-3xl sm:text-4xl font-black text-white">Selecciona tus Números</p>
+            <p class="text-sm text-slate-400 mt-2">
+                Puedes dejar que el sistema te asigne números automáticamente al azar o buscarlos manualmente.
+            </p>
+        </div>
+
+        <!-- Pestañas Selector: Azar vs Manual -->
+        <div class="flex justify-center mb-8">
+            <div class="inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800">
+                <button id="tab-btn-random" onclick="switchMode('random')" class="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center space-x-2 bg-blue-600 text-white shadow">
+                    <i data-lucide="dices" class="w-4 h-4"></i>
+                    <span>Máquina de la Suerte (Al Azar)</span>
+                </button>
+                <button id="tab-btn-manual" onclick="switchMode('manual')" class="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-slate-400 hover:text-white transition flex items-center space-x-2">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                    <span>Elegir Manualmente</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PANEL 1: MÁQUINA DE LA SUERTE (AL AZAR) -->
+        <div id="panel-random" class="bg-titanium-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            <div class="text-center max-w-md mx-auto mb-6">
+                <div class="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="sparkles" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Generador Automático de Números</h3>
+                <p class="text-xs text-slate-400 mt-1">Elige cuántas boletas quieres y el sistema buscará números disponibles al instante.</p>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <button onclick="setRandomCount(5)" class="count-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800 text-white hover:border-blue-500 transition active" data-count="5">5 Boletas ($10.000)</button>
+                <button onclick="setRandomCount(10)" class="count-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800 text-white hover:border-blue-500 transition" data-count="10">10 Boletas ($20.000)</button>
+                <button onclick="setRandomCount(20)" class="count-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800 text-white hover:border-blue-500 transition" data-count="20">20 Boletas ($40.000)</button>
+                <button onclick="setRandomCount(50)" class="count-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800 text-white hover:border-blue-500 transition" data-count="50">50 Boletas ($100.000)</button>
+            </div>
+
+            <div class="text-center">
+                <button id="btn-generate-random" onclick="generateRandomTickets()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base shadow-xl shadow-blue-600/30 transition transform active:scale-95 inline-flex items-center space-x-2">
+                    <i data-lucide="shuffle" class="w-5 h-5"></i>
+                    <span>¡GENERAR NÚMEROS DE LA SUERTE!</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PANEL 2: ELECCIÓN MANUAL -->
+        <div id="panel-manual" class="hidden bg-titanium-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            <div class="max-w-xl mx-auto mb-8 text-center">
+                <h3 class="text-xl font-bold text-white mb-1">Busca tus 4 Cifras Favoritas</h3>
+                <p class="text-xs text-slate-400 mb-4">Digita cualquier número del 0000 al 9999 para consultar si está libre y añadirlo.</p>
+                
+                <div class="flex items-center gap-2 max-w-sm mx-auto">
+                    <div class="relative flex-1">
+                        <input type="text" id="manual-input" maxlength="4" placeholder="Ej: 1994" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-4 py-3 text-center text-white font-mono text-xl tracking-widest font-bold focus:outline-none focus:border-blue-500">
+                    </div>
+                    <button onclick="checkAndAddManualTicket()" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition">
+                        Añadir
+                    </button>
+                </div>
+                <div id="manual-check-feedback" class="text-xs mt-2 font-medium"></div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Boletas Disponibles Sugeridas:</span>
+                    <button onclick="loadSuggestedTickets()" class="text-xs text-blue-400 hover:underline flex items-center">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5 mr-1"></i> Refrescar sugerencias
+                    </button>
+                </div>
+                <div id="suggested-tickets-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMEN DE BOLETAS SELECCIONADAS (CARRITO) -->
+        <div id="cart-section" class="mt-8 bg-titanium-950 border-2 border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 mr-2 text-blue-400"></i>
+                        Tus Boletas Seleccionadas
+                        <span id="selected-count-badge" class="ml-2 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">0 boletas</span>
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5" id="min-requirement-text">
+                        Mínimo requerido: 5 boletas ($10.000 COP)
+                    </p>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button onclick="clearSelectedTickets()" class="text-xs text-red-400 hover:text-red-300 font-medium py-1.5 px-3 rounded-lg hover:bg-red-500/10 transition flex items-center">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5 mr-1"></i> Limpiar Todo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor de Badges de Números -->
+            <div id="selected-tickets-container" class="py-6 min-h-[90px] flex flex-wrap gap-2 items-center">
+                <div class="text-xs text-slate-500 italic py-4 text-center w-full">
+                    Aún no has seleccionado números. Elige un pack arriba o haz clic en "Generar Números al Azar".
+                </div>
+            </div>
+
+            <!-- Resumen de Pago y Botón de Checkout -->
+            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-1 text-center md:text-left">
+                    <span class="text-xs text-slate-400 block font-medium">Total a Pagar (COP):</span>
+                    <div class="text-3xl font-black text-emerald-400 font-mono" id="cart-total-cop">$0 COP</div>
+                    <div class="text-[11px] text-slate-500">Sin comisiones ocultas • Valor por boleta: $2.000 COP</div>
+                </div>
+
+                <button id="btn-open-checkout" onclick="openCheckoutModal()" disabled class="w-full md:w-auto px-8 py-4 rounded-xl bg-slate-800 text-slate-500 font-bold text-sm sm:text-base cursor-not-allowed transition flex items-center justify-center space-x-2">
+                    <i data-lucide="credit-card" class="w-5 h-5"></i>
+                    <span>Continuar al Pago y Registro</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SECCIÓN PREGUNTAS FRECUENTES -->
+<section class="py-16 bg-titanium-900/30 border-t border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-2">Transparencia y Seguridad</h2>
+            <p class="text-3xl font-black text-white">Preguntas Frecuentes</p>
+        </div>
+
+        <div class="space-y-4 text-sm">
+            <div class="bg-titanium-900 border border-slate-800 rounded-2xl p-5">
+                <h4 class="font-bold text-white flex items-center mb-2">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-blue-400 mr-2"></i>
+                    ¿Cómo y cuándo se elige al ganador?
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    El sorteo se llevará a cabo el <strong>22 de Diciembre de 2026</strong>. El número ganador corresponderá a las 4 cifras del Premio Mayor de la lotería oficial seleccionada en Colombia. El sorteo es 100% público y verificable por televisión y canales oficiales de la lotería.
+                </p>
+            </div>
+
+            <div class="bg-titanium-900 border border-slate-800 rounded-2xl p-5">
+                <h4 class="font-bold text-white flex items-center mb-2">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-blue-400 mr-2"></i>
+                    ¿Cómo sé que mis números quedaron registrados?
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Inmediatamente después de realizar tu orden, recibirás un correo electrónico oficial con tus boletas y un código de orden único. Además, puedes verificar tus números en cualquier momento en la sección <a href="/consultar" class="text-blue-400 underline font-semibold">Consultar Mis Boletas</a> ingresando tu número de cédula o teléfono celular.
+                </p>
+            </div>
+
+            <div class="bg-titanium-900 border border-slate-800 rounded-2xl p-5">
+                <h4 class="font-bold text-white flex items-center mb-2">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-blue-400 mr-2"></i>
+                    ¿Cómo se entrega el iPhone 17 Pro al ganador?
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    El ganador será contactado por llamada y WhatsApp. Se realizará la entrega personal o envío asegurado nacional totalmente gratis a cualquier ciudad o municipio de Colombia. El ganador debe presentar su cédula original para validar que coincida con el registro.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL DE CHECKOUT Y PAGO -->
+<div id="checkout-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="relative bg-titanium-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 my-8 shadow-2xl text-left">
+        
+        <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="mb-6">
+            <div class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-500/20 text-blue-300 mb-2">
+                <i data-lucide="lock" class="w-3 h-3"></i>
+                <span>REGISTRO SEGURO</span>
+            </div>
+            <h3 class="text-2xl font-black text-white">Finaliza tu Compra</h3>
+            <p class="text-xs text-slate-400">Ingresa tus datos reales para asignarte las boletas y contactarte si ganas.</p>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6 flex justify-between items-center text-xs">
+            <div>
+                <span class="text-slate-400 block">Boletas a registrar:</span>
+                <span class="font-bold text-white font-mono text-sm" id="modal-ticket-count">0 boletas</span>
+            </div>
+            <div class="text-right">
+                <span class="text-slate-400 block">Total a transferir:</span>
+                <span class="font-black text-emerald-400 font-mono text-base" id="modal-total-amount">$0 COP</span>
+            </div>
+        </div>
+
+        <form id="checkout-form" onsubmit="submitCheckout(event)" class="space-y-4 text-xs">
+            <div>
+                <label class="block font-bold text-slate-300 mb-1">Nombre Completo *</label>
+                <input type="text" id="cust-name" required placeholder="Ej: Juan Camilo Pérez" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">Cédula de Ciudadanía *</label>
+                    <input type="text" id="cust-cedula" required placeholder="Ej: 1020304050" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">Celular / WhatsApp *</label>
+                    <input type="tel" id="cust-phone" required placeholder="Ej: 3101234567" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">Correo Electrónico *</label>
+                    <input type="email" id="cust-email" required placeholder="tu@correo.com" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-300 mb-1">Ciudad / Municipio *</label>
+                    <input type="text" id="cust-city" required placeholder="Ej: Bogotá, Medellín, Cali" class="w-full bg-titanium-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <label class="block font-bold text-slate-300 mb-2">Medio de Pago a Utilizar *</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <label class="cursor-pointer border border-slate-700 bg-slate-950 rounded-xl p-3 text-center hover:border-purple-500 transition flex flex-col items-center">
+                        <input type="radio" name="payment_method" value="nequi" checked class="mb-1 text-purple-600 focus:ring-0">
+                        <span class="font-bold text-purple-400">Nequi</span>
+                    </label>
+                    <label class="cursor-pointer border border-slate-700 bg-slate-950 rounded-xl p-3 text-center hover:border-red-500 transition flex flex-col items-center">
+                        <input type="radio" name="payment_method" value="daviplata" class="mb-1 text-red-600 focus:ring-0">
+                        <span class="font-bold text-red-400">Daviplata</span>
+                    </label>
+                    <label class="cursor-pointer border border-slate-700 bg-slate-950 rounded-xl p-3 text-center hover:border-yellow-500 transition flex flex-col items-center">
+                        <input type="radio" name="payment_method" value="bancolombia" class="mb-1 text-yellow-500 focus:ring-0">
+                        <span class="font-bold text-yellow-400">Bancolombia</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-[11px] space-y-2 text-slate-300">
+                <div class="font-bold text-blue-400 uppercase tracking-wider text-[10px]">Cuentas autorizadas para transferir:</div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-800">
+                    <span>📱 <strong>Nequi:</strong> {{ settings.nequi_number }} ({{ settings.nequi_name }})</span>
+                    <button type="button" onclick="navigator.clipboard.writeText('{{ settings.nequi_number }}'); alert('Número Nequi copiado');" class="text-blue-400 font-bold hover:underline">Copiar</button>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-800">
+                    <span>📱 <strong>Daviplata:</strong> {{ settings.daviplata_number }} ({{ settings.daviplata_name }})</span>
+                    <button type="button" onclick="navigator.clipboard.writeText('{{ settings.daviplata_number }}'); alert('Número Daviplata copiado');" class="text-blue-400 font-bold hover:underline">Copiar</button>
+                </div>
+                <div class="flex justify-between items-center py-1">
+                    <span>🏦 <strong>Bancolombia:</strong> {{ settings.bancolombia_account }} ({{ settings.bancolombia_name }})</span>
+                    <button type="button" onclick="navigator.clipboard.writeText('{{ settings.bancolombia_account }}'); alert('Cuenta copiada');" class="text-blue-400 font-bold hover:underline">Copiar</button>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-300 mb-1">Adjuntar comprobante de pago (Opcional si lo envías por WhatsApp):</label>
+                <input type="file" id="cust-receipt" accept="image/*,.pdf" class="w-full text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-white hover:file:bg-slate-700">
+            </div>
+
+            <button type="submit" id="btn-submit-order" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm shadow-xl shadow-emerald-900/30 transition flex items-center justify-center space-x-2">
+                <i data-lucide="check-circle" class="w-5 h-5"></i>
+                <span>CONFIRMAR Y ENVIAR POR WHATSAPP</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}
