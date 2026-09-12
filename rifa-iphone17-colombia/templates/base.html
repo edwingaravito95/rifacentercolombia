@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sorteo Oficial iPhone 17 Pro Colombia{% endblock %}</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Participa por un espectacular iPhone 17 Pro. 10.000 números, solo .000 COP por boleta. Gran sorteo este 22 de diciembre con la lotería oficial.">
+    <meta property="og:title" content="Gran Sorteo iPhone 17 Pro Colombia">
+    <meta property="og:description" content="Gana un iPhone 17 Pro. Elige tus números de la suerte desde .000 COP la boleta.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        titanium: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            400: '#94a3b8',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#070a13'
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        },
+                        apple: {
+                            blue: '#0071e3',
+                            hover: '#0077ed'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body class="bg-titanium-950 text-slate-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white font-sans antialiased">
+    
+    <!-- Barra Superior / Anuncio -->
+    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-950 text-xs py-2 px-4 text-center border-b border-blue-500/20 text-blue-200 flex items-center justify-center space-x-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+            VENTAS ACTIVAS
+        </span>
+        <span>🎉 Gran Sorteo: <strong>22 de Diciembre</strong> con la Lotería Oficial • Solo <strong>.000 COP</strong> por boleta (Mínimo 5)</span>
+    </div>
+
+    <!-- Navegación -->
+    <header class="sticky top-0 z-40 bg-titanium-950/80 backdrop-blur-xl border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition duration-200">
+                    <i data-lucide="smartphone" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-blue-400">
+                        SORTEO iPHONE 17
+                    </span>
+                    <span class="block text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Colombia Oficial</span>
+                </div>
+            </a>
+
+            <!-- Menú de enlaces -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                <a href="/#packs" class="hover:text-blue-400 transition">Packs de Boletas</a>
+                <a href="/#selector" class="hover:text-blue-400 transition">Elegir Números</a>
+                <a href="/consultar" class="hover:text-blue-400 transition flex items-center space-x-1">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    <span>Consultar Mis Boletas</span>
+                </a>
+                <a href="/terminos" class="hover:text-blue-400 transition">Términos y Reglas</a>
+            </nav>
+
+            <!-- Acciones -->
+            <div class="flex items-center space-x-3">
+                <a href="/consultar" class="md:hidden text-slate-300 hover:text-white p-2" title="Consultar Boletas">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </a>
+                <a href="/#packs" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/25 transition transform active:scale-95 flex items-center space-x-2">
+                    <i data-lucide="ticket" class="w-4 h-4"></i>
+                    <span>Comprar Ahora</span>
+                </a>
+                <a href="/admin" class="text-slate-400 hover:text-slate-200 p-2 text-xs rounded-lg hover:bg-slate-800/60 transition" title="Panel de Administración">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido dinámico -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    
+    <!-- Contenedor flotante de notificaciones de compradores recientes (Social Proof) -->
+    <div id="social-proof-toast" class="fixed bottom-6 left-6 z-40 max-w-xs sm:max-w-sm bg-titanium-900/95 border border-slate-700/80 rounded-2xl p-3.5 shadow-2xl backdrop-blur-xl transition-all duration-500 transform translate-y-24 opacity-0 pointer-events-none flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg shadow-emerald-500/20">
+            <i data-lucide="ticket" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xs">
+            <div class="font-bold text-white" id="toast-title">Compra Reciente</div>
+            <div class="text-slate-300 text-[11px]" id="toast-desc">Cargando...</div>
+            <div class="text-slate-500 text-[9px] mt-0.5" id="toast-time">Hace unos momentos</div>
+        </div>
+    </div>
+
+    <!-- Barra fija inferior de compra para móviles -->
+    <div id="mobile-sticky-bar" class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-titanium-950/95 border-t border-slate-800 p-3.5 backdrop-blur-xl shadow-2xl flex items-center justify-between transition-transform duration-300 transform translate-y-full">
+        <div>
+            <span class="text-[10px] text-slate-400 block font-semibold" id="mobile-bar-count">0 boletas seleccionadas</span>
+            <span class="text-lg font-black text-emerald-400 font-mono" id="mobile-bar-total">$0 COP</span>
+        </div>
+        <button onclick="openCheckoutModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg shadow-blue-600/30 active:scale-95 transition flex items-center space-x-1.5">
+            <i data-lucide="credit-card" class="w-4 h-4"></i>
+            <span>Pagar Boletas</span>
+        </button>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/{{ settings.whatsapp_number }}?text=Hola,%20tengo%20una%20pregunta%20sobre%20el%20sorteo%20del%20iPhone%2017%20Pro" target="_blank" rel="noopener noreferrer" class="group flex items-center bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-xl shadow-emerald-900/40 hover:shadow-emerald-600/40 transition-all duration-300 transform hover:scale-105">
+            <i data-lucide="message-circle" class="w-6 h-6 sm:mr-2 fill-current"></i>
+            <span class="hidden sm:inline text-sm font-bold tracking-wide">Soporte WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-titanium-900 border-t border-slate-800 mt-20 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Columna 1 -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+                            <i data-lucide="smartphone" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white tracking-wide">Sorteo iPhone 17 Pro</span>
+                    </div>
+                    <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                        Plataforma oficial de sorteo en Colombia. 10.000 boletas exclusivas (0000 al 9999). Jugamos con el premio mayor de la lotería oficial el <strong>22 de Diciembre de 2026</strong>.
+                    </p>
+                    <div class="flex items-center space-x-4 text-xs text-slate-400">
+                        <span class="flex items-center"><i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400 mr-1"></i> 100% Transparente</span>
+                        <span class="flex items-center"><i data-lucide="award" class="w-4 h-4 text-amber-400 mr-1"></i> Entrega Garantizada</span>
+                    </div>
+                </div>
+
+                <!-- Columna 2 -->
+                <div>
+                    <h3 class="text-white font-semibold text-xs tracking-wider uppercase mb-3">Accesos Rápidos</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="/#packs" class="hover:text-blue-400 transition">Packs Disponibles</a></li>
+                        <li><a href="/#selector" class="hover:text-blue-400 transition">Máquina de la Suerte</a></li>
+                        <li><a href="/consultar" class="hover:text-blue-400 transition">Verificar Mis Números</a></li>
+                        <li><a href="/terminos" class="hover:text-blue-400 transition">Reglamento y Legal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3 -->
+                <div>
+                    <h3 class="text-white font-semibold text-xs tracking-wider uppercase mb-3">Atención al Cliente</h3>
+                    <p class="text-xs text-slate-400 mb-2">WhatsApp Oficial:</p>
+                    <a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" class="text-emerald-400 font-mono font-bold text-sm block mb-3 hover:underline">
+                        +{{ settings.whatsapp_number }}
+                    </a>
+                    <p class="text-xs text-slate-500">Horario de atención:<br>Lunes a Domingo: 8:00 AM - 10:00 PM</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>© 2026 Sorteo iPhone 17 Pro Colombia. Todos los derechos reservados.</p>
+                <div class="mt-2 sm:mt-0 space-x-4">
+                    <a href="/terminos" class="hover:text-slate-300">Términos del Sorteo</a>
+                    <span>•</span>
+                    <a href="/consultar" class="hover:text-slate-300">Consulta de Boletas</a>
+                    <span>•</span>
+                    <a href="/admin" class="hover:text-slate-300">Acceso Admin</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

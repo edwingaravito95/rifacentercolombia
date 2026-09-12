@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultar Mis Boletas • Sorteo iPhone 17 Pro{% endblock %}
+
+{% block content %}
+<div class="py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Encabezado de la página -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 mb-3">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                <span>VERIFICACIÓN OFICIAL</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black text-white">Consulta tus Boletas</h1>
+            <p class="text-sm text-slate-400 mt-2 max-w-md mx-auto">
+                Digita tu número de <strong>Cédula de Ciudadanía</strong> o tu <strong>Teléfono Celular</strong> para ver tus números registrados en el sorteo.
+            </p>
+        </div>
+
+        <!-- Formulario de Búsqueda -->
+        <div class="bg-titanium-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl mb-8">
+            <form action="/consultar" method="GET" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-1">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" name="q" value="{{ query }}" required placeholder="Ingresa tu cédula o teléfono..." class="w-full bg-titanium-950 border border-slate-700 rounded-2xl pl-11 pr-4 py-3.5 text-white placeholder-slate-500 font-mono text-base focus:outline-none focus:border-blue-500 transition">
+                </div>
+                <button type="submit" class="px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition flex items-center justify-center space-x-2">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    <span>Buscar Boletas</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Resultados -->
+        {% if query %}
+            {% if results %}
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider">
+                            Resultados encontrados para: <span class="text-white font-mono">{{ query }}</span>
+                        </h2>
+                        <span class="text-xs text-blue-400 font-semibold">{{ results|length }} orden(es)</span>
+                    </div>
+
+                    {% for ord in results %}
+                    <div class="bg-titanium-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-2">
+                            <div>
+                                <span class="text-xs text-slate-500 uppercase font-mono block">Código de Orden</span>
+                                <span class="text-base font-mono font-black text-white">{{ ord.order_id }}</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                {% if ord.status == 'approved' %}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                        <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1"></i> PAGO APROBADO / ACTIVO
+                                    </span>
+                                {% elif ord.status == 'pending' %}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                                        <i data-lucide="clock" class="w-3.5 h-3.5 mr-1"></i> PENDIENTE DE VALIDACIÓN
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-500/20 text-red-400 border border-red-500/30">
+                                        <i data-lucide="x-circle" class="w-3.5 h-3.5 mr-1"></i> CANCELADO
+                                    </span>
+                                {% endif %}
+                                <a href="/boleto/{{ ord.order_id }}" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center">
+                                    <i data-lucide="file-text" class="w-3.5 h-3.5 mr-1"></i> Ver Boleto
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Datos del Comprador -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 text-xs border-b border-slate-800 text-slate-400">
+                            <div>
+                                <span class="block text-slate-500 text-[10px]">Titular:</span>
+                                <strong class="text-white">{{ ord.full_name }}</strong>
+                            </div>
+                            <div>
+                                <span class="block text-slate-500 text-[10px]">Cédula:</span>
+                                <strong class="text-white font-mono">{{ ord.cedula }}</strong>
+                            </div>
+                            <div>
+                                <span class="block text-slate-500 text-[10px]">Total Pagado:</span>
+                                <strong class="text-emerald-400 font-mono">${{ "{:,}".format(ord.total_amount).replace(",", ".") }} COP</strong>
+                            </div>
+                            <div>
+                                <span class="block text-slate-500 text-[10px]">Fecha:</span>
+                                <span class="text-slate-300">{{ ord.created_at[:10] }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Boletas -->
+                        <div class="pt-5">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-3">
+                                Tus {{ ord.tickets|length }} Números Asignados:
+                            </span>
+                            <div class="flex flex-wrap gap-2">
+                                {% for num in ord.tickets %}
+                                <div class="px-3.5 py-1.5 rounded-xl font-mono text-base font-bold bg-titanium-950 text-white border border-blue-500/30 flex items-center space-x-1 shadow">
+                                    <i data-lucide="ticket" class="w-3.5 h-3.5 text-blue-400"></i>
+                                    <span>{{ num }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="bg-titanium-900 border border-slate-800 rounded-3xl p-10 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="alert-circle" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">No se encontraron boletas</h3>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto mb-6">
+                        No encontramos registros con el documento o teléfono <strong>{{ query }}</strong>. Si acabas de comprar, asegúrate de haber enviado tu comprobante al WhatsApp oficial.
+                    </p>
+                    <div class="flex items-center justify-center space-x-3">
+                        <a href="/#packs" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">
+                            Comprar Boletas
+                        </a>
+                        <a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                            Contactar Soporte
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

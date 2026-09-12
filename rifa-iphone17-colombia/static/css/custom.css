@@ -1,0 +1,25 @@
+/* Estilos adicionales personalizados */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    header, footer, .print\:hidden {
+        display: none !important;
+    }
+    .bg-gradient-to-b, .bg-titanium-950, .bg-titanium-900 {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #ccc !important;
+    }
+    .text-white, .text-slate-300, .text-slate-400 {
+        color: #000000 !important;
+    }
+}
+
+.ticket-chip {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ticket-chip:hover {
+    transform: translateY(-2px);
+}
